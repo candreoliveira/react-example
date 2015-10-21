@@ -2,7 +2,8 @@ var path = require('path');
 module.exports = {
   entry: {
     app: "./config/app",
-    analytics: "./config/analytics"
+    analytics: "./config/analytics",
+    story: "./config/story"
   },
   output: {
     path: path.join(__dirname, 'dist'),

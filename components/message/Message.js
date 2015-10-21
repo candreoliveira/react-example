@@ -1,14 +1,16 @@
 export default class Message {
-  constructor(window, name) {
+  constructor(window, name, data) {
     this.document = window && window.document;
     this.window = window;
-    if(this.document.createEvent && this.window.Event && this.window.Event.prototype.initEvent) {
-      let event = this.document.createEvent('Event');
-      event.initEvent(name, true, true);
+    this.data = data;
+
+    if(this.document.createEvent && this.window.CustomEvent && this.window.CustomEvent.prototype.initCustomEvent) {
+      let event = this.document.createEvent('CustomEvent');
+      event.initCustomEvent(name, true, true, data);
       this.event = event;
-    } else if(this.window && this.window.Event) {
+    } else if(this.window && this.window.CustomEvent) {
       try {
-        this.event = new Event(name);
+        this.event = new CustomEvent(name, data);
       } catch (e) {
         this.event = null;
       }
