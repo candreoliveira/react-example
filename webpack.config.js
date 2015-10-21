@@ -1,9 +1,11 @@
 var path = require('path');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+
 module.exports = {
   entry: {
-    app: "./config/app",
-    analytics: "./config/analytics",
-    story: "./config/story"
+    "0.app": "./config/app",
+    "1.analytics": "./config/analytics",
+    "2.story": "./config/story",
   },
   output: {
     path: path.join(__dirname, 'dist'),
@@ -25,4 +27,12 @@ module.exports = {
     extensions: ['', '.js', '.jsx', '.css', '.html']
   },
   devtool: 'eval',
+  plugins: [
+    new HtmlWebpackPlugin({
+      title: 'Custom template',
+      filename: 'index.html',
+      template: 'index.tmpl.html',
+      inject: false
+    })
+  ]
 };
