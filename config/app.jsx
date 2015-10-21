@@ -6,6 +6,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Router, Route, Link} from 'react-router';
 import MenuList from '../components/menu-list/MenuList';
+import Message from '../components/message/Message';
 
 class App extends React.Component {
   render() {
@@ -18,7 +19,11 @@ class App extends React.Component {
 
 class Menu extends React.Component {
   render() {
+    if(window) {
+      (new Message(window, 'MenuLoaded')).dispatchMessage(window.document);
+    }
     const id = ++this.props.params.menuId;
+
     return <div>
       <h3>{id}</h3>
       <Link to="/">Voltar</Link>
@@ -26,12 +31,12 @@ class Menu extends React.Component {
   }
 }
 
-if(document) {
+if(window) {
   ReactDOM.render((
     <Router>
       <Route path="/" component={App}>
         <Route path="menus/:menuId" component={Menu}/>
       </Route>
     </Router>
-  ), document.getElementById('container'));
+  ), window.document.getElementById('container'));
 }
